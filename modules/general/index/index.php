@@ -1,4 +1,6 @@
 <?php
 
-show_window('Hello YALF', 'Index module is here. You can replace this with your code or just switch INDEX_MODULE in YALF primary config.');
+$notice = __('BosorKunBot is only proof-of-concept Userstats Telegram bot implementation').'. ';
+$notice.=__('Not for usage in real world without further testing and development').'. ';
+show_window(__('Hello'), $notice);
 
