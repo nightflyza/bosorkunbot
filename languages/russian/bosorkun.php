@@ -3,7 +3,7 @@
 $lang['def']['Enter your login'] = 'Введите ваш логн';
 $lang['def']['Enter your password'] = 'Введите ваш пароль';
 $lang['def']['No valid login and password'] = 'Нету правильных логина и пароля';
-$lang['def']['You are logged off now'] = 'Сейчас вы разлогинены';
+$lang['def']['You are logged off now'] = 'Сейчас вы разлогинены ❌';
 $lang['def']['Welcome'] = 'Добро пожаловать';
 $lang['def']['Your login'] = 'Ваш логин';
 $lang['def']['Your password'] = 'Ваш пароль';
@@ -32,5 +32,5 @@ $lang['def']['Take credit'] = 'Взять кредит';
 $lang['def']['Available payment methods'] = 'Способы платежей в наличии';
 $lang['def']['Sign in'] = '🔑 Войти';
 $lang['def']['Sign out'] = '🔒 Выйти!';
-
+$lang['def']['You are successfully signed in']='👍 Вы успешно авторизованы';
 

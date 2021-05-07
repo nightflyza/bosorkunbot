@@ -185,32 +185,36 @@ class Bosorkun extends WolfDispatcher {
                     $authData = array('login' => '', 'password' => '');
                 }
 
-                if (empty($this->myLogin)) {
-                    $this->sendToUser(__('Enter your login'));
-                    if (!ispos($this->receivedData['text'], '/start') AND $this->receivedData['text'] != __('Sign in') AND $this->receivedData['text'] != __('Sign out')) {
-                        if (!empty($this->receivedData['text'])) {
-                            $authData['login'] = trim($this->receivedData['text']);
-                            $this->myLogin = $authData['login'];
-                            $this->cache->set('AUTH_' . $this->chatId, $authData, $this->cacheTimeout);
-                            $this->sendToUser(__('Your login') . ': ' . $this->myLogin);
-                            $this->sendToUser(__('Enter your password'));
+                if (!ispos($this->receivedData['text'], '/start')) {
+                    if (empty($this->myLogin)) {
+                        if (empty($this->myLogin) AND  $this->receivedData['text'] != __('Sign out')) {
+                            $this->sendToUser(__('Enter your login'));
                         }
-                    }
-                } else {
-                    if (empty($this->myPassword)) {
                         if (!ispos($this->receivedData['text'], '/start') AND $this->receivedData['text'] != __('Sign in') AND $this->receivedData['text'] != __('Sign out')) {
                             if (!empty($this->receivedData['text'])) {
-                                $rawPassword = trim($this->receivedData['text']);
-                                if (!empty($rawPassword)) {
-                                    $authData['password'] = md5($rawPassword);
-                                    $this->myPassword = $authData['password'];
-                                    $this->cache->set('AUTH_' . $this->chatId, $authData, $this->cacheTimeout);
-                                    $this->sendToUser(__('Your password') . ': ' . $rawPassword);
-                                    if ($this->checkAuth($this->myLogin, $this->myPassword)) {
-                                        $this->loggedIn = true;
-                                        $userData = $this->getApiData();
-                                        $this->sendToUser(__('Welcome') . ', ' . $userData['realname']);
-                                        $this->actionKeyboard(__('Whats next') . '?');
+                                $authData['login'] = trim($this->receivedData['text']);
+                                $this->myLogin = $authData['login'];
+                                $this->cache->set('AUTH_' . $this->chatId, $authData, $this->cacheTimeout);
+                                $this->sendToUser(__('Your login') . ': ' . $this->myLogin);
+                                $this->sendToUser(__('Enter your password'));
+                            }
+                        }
+                    } else {
+                        if (empty($this->myPassword)) {
+                            if (!ispos($this->receivedData['text'], '/start') AND $this->receivedData['text'] != __('Sign in') AND $this->receivedData['text'] != __('Sign out')) {
+                                if (!empty($this->receivedData['text'])) {
+                                    $rawPassword = trim($this->receivedData['text']);
+                                    if (!empty($rawPassword)) {
+                                        $authData['password'] = md5($rawPassword);
+                                        $this->myPassword = $authData['password'];
+                                        $this->cache->set('AUTH_' . $this->chatId, $authData, $this->cacheTimeout);
+                                        $this->sendToUser(__('Your password') . ': ' . $rawPassword);
+                                        if ($this->checkAuth($this->myLogin, $this->myPassword)) {
+                                            $this->loggedIn = true;
+                                            $userData = $this->getApiData();
+                                            $this->sendToUser(__('Welcome') . ', ' . $userData['realname']);
+                                            $this->actionKeyboard(__('Whats next') . '?');
+                                        }
                                     }
                                 }
                             }
@@ -265,7 +269,7 @@ class Bosorkun extends WolfDispatcher {
                                 'password' => $this->myPassword
                             );
                             $this->cache->set('AUTH_' . $this->chatId, $authData, $this->cacheTimeout);
-                            $this->sendToUser(__('Welcome') . '!');
+                            $this->sendToUser(__('You are successfully signed in') . '. ' . __('Welcome') . '!');
                         }
                     }
                 }
